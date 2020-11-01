@@ -103,7 +103,7 @@ for currentTc in range(1, TestCases + 1):
 	# print (brute_response) # DEBUG OUTPUT
 
 	# check if output matches
-	if !checker(my_response, brute_response):
+	if not checker(my_response, brute_response):
 		fail(tc, my_response, brute_response)
 	elif showEachPass: # test case passed
 		print (colored(".Passed case " + str(currentTc), 'green'))
