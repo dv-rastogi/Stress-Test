@@ -117,7 +117,7 @@ void solve(int ntc) {
 			here += clokmr;
  		}
 		if(rpos == -1)
-			rpos = w - 1;
+			rpos = w;
 		if((at < w - 1) && ((rpos - 1) >= (at + 1))) {
 			// at + 1 ---> rpos - 1
 			ll antisumr = pre[rpos] - pre[at + 1];
