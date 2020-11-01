@@ -27,7 +27,7 @@ Currently configured for [Combination lock - Google kickstart round G](https://c
 * Ensure both your brute & optimized programs recieve input from a file. *In my repo, it's "inputf.in"*
 * Update *gen* function in *stressCheck.py* in order to randomly generate your test cases.
 * Update *checker* function in *stressCheck.py* in order to form basis of comparison for your response and brute response. *In my repo, it's string comparison*
-* Wait to hopefully retrieve a corner case, lol.
+* Run `make stress` & wait to hopefully retrieve a corner case, lol.
 
 ```
 Currently supported on Linux/Mac
