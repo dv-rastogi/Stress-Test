@@ -9,7 +9,7 @@ user_config params:-
 TestCases: Number of testCases to test against
 Usedtt: Multiple testCases in input (NOTE: Refresh each global parameter after each test case)
 showEachPass: Print affirmative after each test case passed
-removeBlanks: remove blanks in the output
+removeBlanks: remove blanks (whitespaces) in the output
 whereFail: print where the output doesn't match
 inputPipe: input file used to feed input to executables
 debug: for each input -> print input, your output & brute output
@@ -21,7 +21,7 @@ user_config = {
     "removeBlanks" : True, 
     "whereFail" : True, 
     "inputPipe" : "temp/inputf.in",
-	"debug": True
+	"debug": False
 }
 
 
@@ -36,8 +36,10 @@ return:
 list of strings where each string is supposed to be displaed on a new line
 '''
 def gen_case():
-	n = random.randint(1, 5)
-	a = [random.randint(1, 10) for i in range(n)]
+	lim = int(1000)
+	dlim = 100
+	n = random.randint(1, lim)
+	a = [random.randint(1, dlim) for i in range(n)]
 	tc = [str(n), ' '.join(list(map(str, a)))]
 	return tc
 

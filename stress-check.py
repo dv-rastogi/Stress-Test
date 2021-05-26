@@ -31,6 +31,7 @@ for currentTc in range(1, user_config["TestCases"] + 1):
 	if user_config["Usedtt"]:
 		tc = ["1"] + tc
 	if user_config["debug"]:
+		print("Test case")
 		print(*tc, sep = '\n')
 
 	# write to inputPipe
@@ -45,6 +46,7 @@ for currentTc in range(1, user_config["TestCases"] + 1):
 	if user_config["removeBlanks"]:
 		my_response = [line for line in my_response if line.strip()] # removing blanks
 	if user_config["debug"]:
+		print("My response")
 		print(my_response) 
 
 	# get brute out
@@ -53,6 +55,7 @@ for currentTc in range(1, user_config["TestCases"] + 1):
 	if user_config["removeBlanks"]:
 		brute_response = [line for line in brute_response if line.strip()] # removing blanks
 	if user_config["debug"]:
+		print("Brute response")
 		print (brute_response)
 
 	# check if output matches
