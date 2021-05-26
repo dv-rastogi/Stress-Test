@@ -1,8 +1,3 @@
-default:
-	@g++ -Wall T.cpp -o Out
-	./Out
-	@rm Out
-
 run:
 	@tput bold;
 	@tput setaf 6; 
@@ -14,29 +9,14 @@ run:
 	@tput sgr0
 	@rm Out
 	@echo ""
-	
-reset:
-	@tput bold;
-	@tput setaf 6; 
-	@printf "DIR NAME > "
-	@tput sgr0
-	@read NAMEDIR; \
-	cp -r INROUND/ $$NAMEDIR/
-	@rm -f INROUND/*.cpp
-	@rm -f INROUND/a
-	@rm -f INROUND/b
-	@rm -f INROUND/c
-	@rm -f INROUND/d
-	@rm -f INROUND/e
-	@rm -f INROUND/f
-	@tput sgr0
-	@echo ""
 
-stress:
-	@cat inputf.in > saveIn.txt
-	g++ -Wall T.cpp -o myOut
-	g++ -Wall brute.cpp -o bruteOut
-	python3 stressCheck.py
-	@cat saveIn.txt > inputf.in
-	@rm ./myOut ./bruteOut saveIn.txt
-	
+stress: clean
+	@mkdir temp
+	@touch temp/inputf.in
+	g++ -Wall sols/main.cpp -o temp/myOut
+	g++ -Wall sols/brute.cpp -o temp/bruteOut
+	python3 stress-check.py
+	@rm -rf temp
+
+clean:
+	@rm -rf temp __pycache__
