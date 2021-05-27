@@ -19,16 +19,24 @@ def fail(tc, my_response, brute_response):
 	print(*my_response, sep = '\n')
 	print("\n-- Brute Output --\n")
 	print(*brute_response, sep = '\n')
+
+	if user_config["saveTC"] is not None:
+		with open(user_config["inputPipe"], "r") as f1:
+			lines = f1.readlines()
+			with open(user_config["saveTC"], "w") as f2:
+				f2.writelines(lines)
+		print(colored(f"\n> Test case saved at {user_config['saveTC']}", 'yellow'))
+			 
 	exit(0)	
 
 
 # TESTING LOOP =============>
 print(colored("\n#### Stress Testing .. ####", 'cyan', attrs = ['bold']))
-for currentTc in range(1, user_config["TestCases"] + 1):
+for currentTc in range(1, user_config["testCases"] + 1):
 
 	# fetching test case
 	tc = gen_case()
-	if user_config["Usedtt"]:
+	if user_config["usedtt"]:
 		tc = ["1"] + tc
 	if user_config["debug"]:
 		print("Test case")
