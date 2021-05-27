@@ -11,7 +11,6 @@ usedtt: Multiple testCases in input (NOTE: Refresh each global parameter after e
 showEachPass: Print affirmative after each test case passed
 removeBlanks: remove blanks (whitespaces) in the output
 whereFail: print where the output doesn't match
-inputPipe: input file used to feed input to executables
 debug: for each input -> print input, your output & brute output
 saveTC: path to a file which stores the failed test case, None if file is not to be saved
 """
@@ -21,9 +20,24 @@ user_config = {
     "showEachPass": True,
     "removeBlanks": True,
     "whereFail": True,
-    "inputPipe": "temp/inputf.in",
+    "inputPipe": "_temp/inputf.in",
     "debug": False,
     "saveTC": "sols/in.txt",
+}
+
+
+"""
+NOTE: "_temp" is created during stress testing, it is advisable to leave these settings intact
+NOTE: If you wish to change paths for intermediate executables, change appropriately in the makefile
+stress_config params:
+inputPipe: input file used to feed input to executables 
+bruteExec: path to brute executable
+myExec: path to your executable
+"""
+stress_config = {
+    "inputPipe": "_temp/inputf.in",
+    "bruteExec": "_temp/bruteOut",
+    "myExec": "_temp/myOut",
 }
 
 
@@ -40,10 +54,17 @@ list of strings where each string is supposed to be displaed on a new line
 
 
 def gen_case():
-    lim = int(10)
-    dlim = 10
+    lim = int(5000)
+    dlim = int(1e9)
     n = random.randint(1, lim)
-    a = [random.randint(-dlim, dlim) for i in range(n)]
+    done = {}
+    a = []
+    while len(a) != n:
+        put = random.randint(-dlim, dlim)
+        while put in done:
+            put = random.randint(-dlim, dlim)
+        a.append(put)
+        done[put] = 1
     tc = [str(n), " ".join(list(map(str, a)))]
     return tc
 

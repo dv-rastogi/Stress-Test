@@ -8,7 +8,7 @@ PREREQ:
 import os
 from subprocess import run, PIPE
 from termcolor import colored
-from user import user_config, gen_case, checker
+from user import user_config, stress_config, gen_case, checker
 
 
 # failed a test case
@@ -21,7 +21,7 @@ def fail(tc, my_response, brute_response):
     print(*brute_response, sep="\n")
 
     if user_config["saveTC"] is not None:
-        with open(user_config["inputPipe"], "r") as f1:
+        with open(stress_config["inputPipe"], "r") as f1:
             lines = f1.readlines()
             with open(user_config["saveTC"], "w") as f2:
                 f2.writelines(lines)
@@ -43,25 +43,31 @@ for currentTc in range(1, user_config["testCases"] + 1):
         print(*tc, sep="\n")
 
     # write to inputPipe
-    stressIn = open(user_config["inputPipe"], "w")
+    stressIn = open(stress_config["inputPipe"], "w")
     for tline in tc:
         stressIn.write(tline + "\n")
     stressIn.close()
 
     # get my out
     my_proc = run(
-        ["temp/myOut"], stdout=PIPE, stdin=open(user_config["inputPipe"], "r")
+        [stress_config["myExec"]],
+        stdout=PIPE,
+        stdin=open(stress_config["inputPipe"], "r"),
     )
     my_response = (my_proc.stdout.decode("utf-8")).split("\n")
     if user_config["removeBlanks"]:
-        my_response = [line for line in my_response if line.strip()]  # removing blanks
+        my_response = [
+            line for line in my_response if line.strip()
+        ]  # removing blanks
     if user_config["debug"]:
         print("My response")
         print(my_response)
 
     # get brute out
     brute_proc = run(
-        ["temp/bruteOut"], stdout=PIPE, stdin=open(user_config["inputPipe"], "r")
+        [stress_config["bruteExec"]],
+        stdout=PIPE,
+        stdin=open(stress_config["inputPipe"], "r"),
     )
     brute_response = (brute_proc.stdout.decode("utf-8")).split("\n")
     if user_config["removeBlanks"]:

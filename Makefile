@@ -10,13 +10,13 @@ run:
 	@rm Out
 	@echo ""
 
-stress: clean
-	@mkdir temp
-	@touch temp/inputf.in
-	g++ -Wall sols/main.cpp -o temp/myOut
-	g++ -Wall sols/brute.cpp -o temp/bruteOut
+stress: clean 
+	@mkdir _temp
+	@touch _temp/inputf.in 
+	g++ -Wall sols/main.cpp -o _temp/myOut
+	g++ -Wall sols/brute.cpp -o _temp/bruteOut
 	python3 stress-check.py
-	@rm -rf temp
+	@rm -rf _temp __pycache__
 
 clean:
-	@rm -rf temp __pycache__
+	@rm -rf _temp __pycache__
