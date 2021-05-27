@@ -12,7 +12,8 @@ showEachPass: Print affirmative after each test case passed
 removeBlanks: remove blanks (whitespaces) in the output
 whereFail: print where the output doesn't match
 debug: for each input -> print input, your output & brute output
-saveTC: path to a file which stores the failed test case, None if file is not to be saved
+saveTC: relative path to a file which stores the failed test case, None if file is not to be saved
+extraTC: relative path to a folder containing one or more input files for testing against your custom test cases, None if no extra test cases are to be used
 """
 user_config = {
     "testCases": 1000,
@@ -23,6 +24,7 @@ user_config = {
     "inputPipe": "_temp/inputf.in",
     "debug": False,
     "saveTC": "sols/in.txt",
+    "extraTC": None,  # TODO
 }
 
 
@@ -54,9 +56,10 @@ list of strings where each string is supposed to be displaed on a new line
 
 
 def gen_case():
-    lim = int(5000)
+    lim = int(1000)
     dlim = int(1e9)
     n = random.randint(1, lim)
+    # List containing distinct elements
     done = {}
     a = []
     while len(a) != n:
@@ -65,6 +68,10 @@ def gen_case():
             put = random.randint(-dlim, dlim)
         a.append(put)
         done[put] = 1
+
+    # Any List
+    # a = [random.randint(-dlim, dlim) for _ in range(n)]
+
     tc = [str(n), " ".join(list(map(str, a)))]
     return tc
 
